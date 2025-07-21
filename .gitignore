@@ -1,3 +1,5 @@
 key.txt
 *.env
 .*
+backend/venv/*
+goldfish/*
