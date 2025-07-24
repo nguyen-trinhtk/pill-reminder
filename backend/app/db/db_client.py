@@ -2,7 +2,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from dotenv import load_dotenv
 from urllib.parse import quote_plus
-import os
+import os, datetime
 
 
 USERS_COLLECTION = "users"
@@ -20,3 +20,14 @@ def get_client() -> MongoClient:
 
 def close_client(client: MongoClient) -> None:
     client.close()
+
+def serialize_doc(doc):
+    if not doc:
+        return doc
+    doc = dict(doc)
+    if '_id' in doc:
+        doc['_id'] = str(doc['_id'])
+    for k, v in doc.items():
+        if isinstance(v, datetime.datetime):
+            doc[k] = v.isoformat()
+    return doc

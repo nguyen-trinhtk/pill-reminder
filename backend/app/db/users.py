@@ -2,17 +2,7 @@ from pymongo.mongo_client import MongoClient
 from bson import ObjectId, errors as bson_errors
 import datetime
 USERS_COLLECTION = "users"
-
-def serialize_doc(doc):
-    if not doc:
-        return doc
-    doc = dict(doc)
-    if '_id' in doc:
-        doc['_id'] = str(doc['_id'])
-    for k, v in doc.items():
-        if isinstance(v, datetime.datetime):
-            doc[k] = v.isoformat()
-    return doc
+from app.db.db_client import serialize_doc
 
 def create_user(
     client: MongoClient,

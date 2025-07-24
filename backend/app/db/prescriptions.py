@@ -1,6 +1,7 @@
 from pymongo.mongo_client import MongoClient
 from bson import ObjectId, errors as bson_errors
 import datetime
+from app.db.db_client import serialize_doc
 
 USERS_COLLECTION = "users"
 PRESCRIPTIONS_COLLECTION = "prescriptions"
