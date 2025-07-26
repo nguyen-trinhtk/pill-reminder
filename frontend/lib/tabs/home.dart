@@ -76,9 +76,9 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 16,
                   children: [
-                    MedCard(title:'Ibuprofen', dosage: '500mg', time: '8:00 AM'),
-                    MedCard(title:'Paracetamol', dosage: '650mg', time: '10:00 AM'),
-                    MedCard(title:'Aspirin', dosage: '100mg', time: '12:00 PM'),
+                    MedActionCard(title:'Ibuprofen', dosage: '500mg', time: '8:00 AM'),
+                    MedActionCard(title:'Paracetamol', dosage: '650mg', time: '10:00 AM'),
+                    MedActionCard(title:'Aspirin', dosage: '100mg', time: '12:00 PM'),
                   ],
                 ),
               ),

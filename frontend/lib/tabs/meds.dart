@@ -14,15 +14,12 @@ class MedsPage extends StatelessWidget {
           padding: const EdgeInsets.all(24.0),
           physics: const BouncingScrollPhysics(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 16,
+            spacing: 32,
             children: [
-              MedCard(title: 'Ibuprofen', dosage: '500mg', time: '8:00AM'),
-              MedCard(title: 'Paracetamol', dosage: '500mg', time: '12:00PM'),
-              MedCard(title: 'Amoxicillin', dosage: '250mg', time: '6:00PM'),
-              MedCard(title: 'Aspirin', dosage: '100mg', time: '10:00PM'),
-              MedCard(title: 'Lisinopril', dosage: '10mg', time: '8:00AM'),
+              MedScheduleCard(title: 'title', dosage: 'dosage', time: 'time'),
+              MedScheduleCard(title: 'title', dosage: 'dosage', time: 'time'),
+              MedScheduleCard(title: 'title', dosage: 'dosage', time: 'time'),
+              MedScheduleCard(title: 'title', dosage: 'dosage', time: 'time')
             ],
           ),
         ),

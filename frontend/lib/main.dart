@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:frontend/const.dart';
 import 'package:frontend/tabs/home.dart';
 import 'package:frontend/tabs/meds.dart';
-import 'package:frontend/tabs/add.dart';
+import 'package:frontend/secondary_views.dart/new_prescription.dart';
 import 'package:frontend/tabs/dispenser.dart';
 import 'package:frontend/tabs/account.dart';
 
