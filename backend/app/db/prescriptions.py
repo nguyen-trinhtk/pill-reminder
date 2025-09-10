@@ -22,6 +22,7 @@ def create_prescription(
     user_id: str,
     medication: str,
     dosage: str,
+    dosage_unit: str,  # <-- add this
     instructions: str,
     frequency: int,
     times: list
@@ -47,6 +48,7 @@ def create_prescription(
         'user_id': str(user_id),
         'medication': medication,
         'dosage': dosage,
+        'dosage_unit': dosage_unit,  # <-- add this
         'instructions': instructions,
         'frequency': frequency,
         'time': times,
@@ -73,6 +75,7 @@ def update_prescription(
     presc_id: str,
     medication: str = None,
     dosage: str = None,
+    dosage_unit: str = None,
     instructions: str = None,
     frequency: int = None,
     times: list = None
@@ -84,6 +87,8 @@ def update_prescription(
         update_fields['medication'] = medication
     if dosage:
         update_fields['dosage'] = dosage
+    if dosage_unit:
+        update_fields['dosage_unit'] = dosage_unit
     if instructions:
         update_fields['instructions'] = instructions
     if frequency is not None:
