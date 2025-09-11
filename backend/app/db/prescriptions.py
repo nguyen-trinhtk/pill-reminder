@@ -20,16 +20,15 @@ def serialize_doc(doc):
 def create_prescription(
     client: MongoClient,
     user_id: str,
-    medication: str,
-    dosage: str,
-    dosage_unit: str,  # <-- add this
-    instructions: str,
-    frequency: int,
-    times: list
+    medication_name: str,
+    dosage: float,
+    dosage_unit: str,
+    form: str,
+    schedule: list  # list of dicts: [{'quantity': int, 'time': str}]
 ) -> str:
     if not user_id:
         raise ValueError("User ID is required.")
-    if not medication or not dosage or not instructions or frequency is None or not times:
+    if not medication_name or dosage is None or not dosage_unit or not form or not schedule:
         raise ValueError("All prescription fields are required.")
     try:
         udb = client.PillReminder[USERS_COLLECTION]
@@ -43,15 +42,13 @@ def create_prescription(
             raise ValueError("User does not exist.")
     except Exception as e:
         raise RuntimeError(f"Failed to validate user: {e}")
-    times = [t.strftime("%H:%M") if isinstance(t, datetime.time) else str(t) for t in times]
     prescription = {
         'user_id': str(user_id),
-        'medication': medication,
+        'medication_name': medication_name,
         'dosage': dosage,
-        'dosage_unit': dosage_unit,  # <-- add this
-        'instructions': instructions,
-        'frequency': frequency,
-        'time': times,
+        'dosage_unit': dosage_unit,
+        'form': form,
+        'schedule': schedule,
         'created_at': datetime.datetime.now(tz=datetime.timezone.utc),
     }
     try:
@@ -73,29 +70,25 @@ def read_prescriptions(client: MongoClient, user_id: str) -> list:
 def update_prescription(
     client: MongoClient,
     presc_id: str,
-    medication: str = None,
-    dosage: str = None,
+    medication_name: str = None,
+    dosage: float = None,
     dosage_unit: str = None,
-    instructions: str = None,
-    frequency: int = None,
-    times: list = None
+    form: str = None,
+    schedule: list = None
 ) -> bool:
     if not presc_id:
         raise ValueError("Prescription ID is required.")
     update_fields = {}
-    if medication:
-        update_fields['medication'] = medication
-    if dosage:
+    if medication_name:
+        update_fields['medication_name'] = medication_name
+    if dosage is not None:
         update_fields['dosage'] = dosage
     if dosage_unit:
         update_fields['dosage_unit'] = dosage_unit
-    if instructions:
-        update_fields['instructions'] = instructions
-    if frequency is not None:
-        update_fields['frequency'] = frequency
-    if times is not None:
-        times = [t.strftime("%H:%M") if isinstance(t, datetime.time) else str(t) for t in times]
-        update_fields['time'] = times
+    if form:
+        update_fields['form'] = form
+    if schedule is not None:
+        update_fields['schedule'] = schedule
     if not update_fields:
         raise ValueError("No fields to update.")
     try:
